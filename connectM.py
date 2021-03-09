@@ -7,18 +7,20 @@ from data.map import Map
 
 gameMap = Map()
 
+# Returns true if a valid first move parameter has been given
 def validatePlayer (first_move):
     if first_move == 0 or first_move == 1:
         return True
 
     return False
 
+# Returns true if the imput parameters are valid
 def validateGame (m_size, win_length, first_move):
     if m_size >= 3 and m_size <= 10:
         if win_length >= 1 and win_length <= m_size:
-            player = validatePlayer(first_move)
+            playerMove = validatePlayer(first_move)
 
-            if player:
+            if playerMove:
                 return True
             else:
                 print('First player could not be determined')

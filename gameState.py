@@ -1,6 +1,7 @@
 from data.map import Map
 import numpy as np
 
+# Makes a new map initialized with -1 in every location
 def startState (matrix_size) -> Map:
     new_map = Map()
     new_map.map_size = matrix_size
@@ -10,20 +11,23 @@ def startState (matrix_size) -> Map:
 
     return new_map
     
+# Returns the characters for the border frame of the game board
 def getFrame (map_size):
     frame = '+'
     for i in range(map_size):
         frame = frame + '---+'
 
     return frame
-
+    
+# Returns the characters for the numerical column labels
 def getLegend (map_size):
     frame = ''
     for i in range(map_size):
         frame = frame + '  ' + str(i+1) + ' '
 
     return frame
-
+    
+# Prints the current game board state
 def buildMap (gameMap):
     frame = getFrame(gameMap.map_size)
     legend = getLegend(gameMap.map_size)
@@ -47,6 +51,7 @@ def buildMap (gameMap):
 
     return
 
+#Returns true if the selected column slot is available
 def checkSlot (gameMap, slot):
     open_spot = 0
     for i in range(gameMap.map_size):
@@ -60,6 +65,16 @@ def checkSlot (gameMap, slot):
         return False
 
 
+#Returns true if the selected column slot is available
+# def checkSlot (gameMap, slot):
+    # open_spot = 0
+    # for i in range(gameMap.map_size):
+        # current_token = gameMap.map_state[i][slot-1]
+        # if current_token == -1:
+            # return True
+    # return False
+
+#Updates the board with a given move slot
 def updateMap (gameMap, slot, symbol):
     for i in range(gameMap.map_size):
         current_token = gameMap.map_state[i][slot-1]
