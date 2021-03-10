@@ -87,7 +87,7 @@ def updateMap (gameMap, slot, symbol):
 
     return gameMap
     
-# Returns true if game is over
+# NEEDS TO BE FIGURED OUT Returns true if game is over
 def gameOver(gameMap, matrix_size, win_length)
     #check column victory
     for row in gameMap.map_state:
