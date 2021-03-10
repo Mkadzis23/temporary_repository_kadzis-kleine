@@ -86,3 +86,10 @@ def updateMap (gameMap, slot, symbol):
     gameMap.map_state[size-1][slot-1] = symbol
 
     return gameMap
+    
+# Returns true if game is over
+def gameOver(gameMap, matrix_size, win_length)
+    #check column victory
+    for row in gameMap.map_state:
+        for column in row:
+            if column == 0 or column == 1

@@ -13,7 +13,7 @@ def validatePlayer (first_move):
         return True
 
     return False
-
+    
 # Returns true if the imput parameters are valid
 def validateGame (m_size, win_length, first_move):
     if m_size >= 3 and m_size <= 10:
@@ -44,7 +44,7 @@ def main (argv):
         gameMap = gs.startState(matrix_size)
         gs.buildMap(gameMap)
         playerMove = first_move == 0
-
+        
         while True:
             if playerMove:
                 while True: 
