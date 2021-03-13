@@ -54,6 +54,8 @@ def buildMap (gameMap):
 #Returns true if the selected column slot is available
 def checkSlot (gameMap, slot):
     open_spot = 0
+    if slot < 1 or slot > gameMap.map_size:
+        return False
     for i in range(gameMap.map_size):
         current_token = gameMap.map_state[i][slot-1]
         if current_token == -1:
@@ -88,7 +90,7 @@ def updateMap (gameMap, slot, symbol):
     return gameMap
     
 # Returns true if game is over
-def gameOver(gameMap, matrix_size, win_length)
+def gameOver(gameMap, matrix_size, win_length):
     inaRow = 0
     #check 0 column victory
     for row in gameMap.map_state:
@@ -96,6 +98,7 @@ def gameOver(gameMap, matrix_size, win_length)
         for column in row:
             if column == 0:
                 inaRow += 1
-                if inaRow == win_length
-                return true
+                if inaRow == win_length:
+                    return True
+    return
     
