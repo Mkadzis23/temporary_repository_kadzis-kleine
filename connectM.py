@@ -32,6 +32,62 @@ def validateGame (m_size, win_length, first_move):
     print('Matrix size should be between 3 and 10')
     return False
 
+# Exits and prints ending message if game is over
+def gameOver(gameMap, matrix_size, win_length):
+    inaRow = 0
+    #check for 0 row victory
+    for row in gameMap.map_state:
+        inaRow = 0
+        for column in row:
+            if column == 0:
+                inaRow += 1
+                if inaRow == win_length:
+                    print('Game Over!')
+                    sys.exit()
+                    return 
+            else:
+                inaRow = 0
+
+    #check 0 column victory
+    for x in range(matrix_size):
+        inaRow = 0
+        for column in gameMap.map_state:
+            if column[x] == 0:
+                inaRow += 1
+                if inaRow == win_length:
+                    print('Game Over!')
+                    sys.exit()
+                    return 
+            else:
+                inaRow = 0
+    
+    #check 0 positive diagonal victory
+    for column in gameMap.map_state:
+            for row in column:
+                for z in range(win_length):
+                    if gameMap.map_state[row + z][column + z] == 0:
+                        inaRow += 1
+                        if inaRow == win_length:
+                            print('Game Over!')
+                            sys.exit()
+                    return 
+            else:
+                inaRow = 0
+    
+    #check 0 negative diagonal victory
+    for column in gameMap.map_state:
+            for row in column:
+                for z in range(win_length):
+                    if gameMap.map_state[row - z][column + z] == 0:
+                        inaRow += 1
+                        if inaRow == win_length:
+                            print('Game Over!')
+                            sys.exit()
+                    return 
+            else:
+                inaRow = 0
+    return
+    
 
 def main (argv):
     matrix_size = int(argv[0])
@@ -48,6 +104,8 @@ def main (argv):
         while True:
             if playerMove:
                 while True: 
+                    # gameOver is checked after AI move and after player move
+                    gameOver(gameMap, matrix_size, win_length)
 
                     input_text = input('[Choose a slot (1-' + str(matrix_size) + ')]: ')
                     if input_text == '':
@@ -63,6 +121,8 @@ def main (argv):
 
                 gameMap = gs.updateMap(gameMap, player_input, 0)
                 gs.buildMap(gameMap)
+                # gameOver is checked after AI move and after player move
+                gameOver(gameMap, matrix_size, win_length)
             
             print('ai does some crazy stuff and makes a move')
             #this is where you would call min max analysis
