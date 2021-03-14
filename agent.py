@@ -5,7 +5,11 @@ from data.map import Map
 import gameState as gs
 
     #takes in the current board state and returns a slot that is the move choice
-def alphBetSearch(gameMap):
+def alphBetSearch(gameMap):\
+    #Generate entire game tree up to a certain depth
+    #apply utility function to the leaves
+    #Propagate upwards to the root (max nodes receiving the max of their children and the opposite for min nodes)
+    #Return the move slot of the child with the highest value in the end
     return
 #takes in a board state and returns a value that represents how favorable it is. Terminal states should be +inf, and loses should be -inf
 def evaluateStateValue(gameMap):
