@@ -79,40 +79,31 @@ def gameOver(gameMap, matrix_size, win_length):
     index_diff = matrix_size - win_length + 1
     map_size = matrix_size - 1
 
-    #positive diagonal
     for i in range(index_diff):
         for j in range(index_diff):
-            match_symbol = gameMap.map_state[map_size - i][j]
-            match_count = 0
+            positive_diagonal_symbol = gameMap.map_state[map_size - i][j]
+            positive_diagonal_count = 0
 
-            if match_symbol == -1:
-                continue
+            negative_diagonal_symbol = gameMap.map_state[i][j]
+            negative_diagonal_count = 0
 
             for count in range(win_length):
-                current_symbol = gameMap.map_state[map_size - i - count][j + count]
-                if current_symbol == match_symbol:
-                    match_count = match_count + 1
+                current_positive_symbol = gameMap.map_state[map_size - i - count][j + count]
+                if current_positive_symbol == positive_diagonal_symbol:
+                    positive_diagonal_count = positive_diagonal_count + 1
+
+                current_negative_symbol = gameMap.map_state[i + count][j + count]
+                if current_negative_symbol == negative_diagonal_symbol:
+                    negative_diagonal_count = negative_diagonal_count + 1
                     
-            if match_count == win_length:
-                setWinner(gameMap, match_symbol)
+            if positive_diagonal_count == win_length:
+                if current_positive_symbol == -1: continue
+                setWinner(gameMap, positive_diagonal_symbol)
                 return 1
 
-    #negative diagonal
-    for i in range(index_diff):
-        for j in range(index_diff):
-            match_symbol = gameMap.map_state[i][j]
-            match_count = 0
-
-            if match_symbol == -1:
-                continue
-
-            for count in range(win_length):
-                current_symbol = gameMap.map_state[i + count][j + count]
-                if current_symbol == match_symbol:
-                    match_count = match_count + 1
-
-            if match_count == win_length:
-                setWinner(gameMap, match_symbol)
+            if negative_diagonal_count == win_length:
+                if current_negative_symbol == -1: continue
+                setWinner(gameMap, negative_diagonal_symbol)
                 return 1
 
     return -1
@@ -133,8 +124,6 @@ def main (argv):
         while True:
             if playerMove:
                 while True: 
-                    
-
                     input_text = input('[Choose a slot (1-' + str(matrix_size) + ')]: ')
                     if input_text == '':
                         return
@@ -157,7 +146,7 @@ def main (argv):
             #followed by the ai's percieved optimal move
             #gameMap = gs.updateMap(gameMap, agent_input, 1)
             # gameOver is checked after AI move and after player move
-            gameOver(gameMap, matrix_size, win_length, 1)
+            gameOver(gameMap, matrix_size, win_length)
             gs.buildMap(gameMap)
             playerMove = True
 
