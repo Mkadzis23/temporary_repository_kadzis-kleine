@@ -4,8 +4,6 @@ import numpy as np
 from data.map import Map
 import gameState as gs
 from data.node import Node
-def Node(gameMap): 
-
 
     #takes in the current board state and returns a slot that is the move choice
 def alphBetSearch(gameMap):
