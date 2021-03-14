@@ -11,7 +11,9 @@ def alphBetSearch(gameMap):\
     #Propagate upwards to the root (max nodes receiving the max of their children and the opposite for min nodes)
     #Return the move slot of the child with the highest value in the end
     return
-#takes in a board state and returns a value that represents how favorable it is. Terminal states should be +inf, and loses should be -inf
+
+
+#takes in a board state and returns a value that represents how favorable it is. 
 def evaluateStateValue(gameMap):
     # Could be just like the gameOver function but look for 2, 3, up to win_length - 1 in a row
     # Add a value to the state's value based on how many of the above options there are in a row
