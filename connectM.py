@@ -33,13 +33,13 @@ def validateGame (m_size, win_length, first_move):
     return False
 
 # Exits and prints ending message if game is over
-def gameOver(gameMap, matrix_size, win_length):
+def gameOver(gameMap, matrix_size, win_length, zeroOrOne):
     inaRow = 0
     #check for 0 row victory
     for row in gameMap.map_state:
         inaRow = 0
         for column in row:
-            if column == 0:
+            if column == zeroOrOne:
                 inaRow += 1
                 if inaRow == win_length:
                     print('Game Over!')
@@ -52,7 +52,7 @@ def gameOver(gameMap, matrix_size, win_length):
     for x in range(matrix_size):
         inaRow = 0
         for column in gameMap.map_state:
-            if column[x] == 0:
+            if column[x] == zeroOrOne:
                 inaRow += 1
                 if inaRow == win_length:
                     print('Game Over!')
@@ -65,7 +65,7 @@ def gameOver(gameMap, matrix_size, win_length):
     for column in gameMap.map_state:
             for row in column:
                 for z in range(win_length):
-                    if gameMap.map_state[row + z][column + z] == 0:
+                    if gameMap.map_state[row + z][column + z] == zeroOrOne:
                         inaRow += 1
                         if inaRow == win_length:
                             print('Game Over!')
@@ -78,7 +78,7 @@ def gameOver(gameMap, matrix_size, win_length):
     for column in gameMap.map_state:
             for row in column:
                 for z in range(win_length):
-                    if gameMap.map_state[row - z][column + z] == 0:
+                    if gameMap.map_state[row - z][column + z] == zeroOrOne:
                         inaRow += 1
                         if inaRow == win_length:
                             print('Game Over!')
@@ -104,8 +104,7 @@ def main (argv):
         while True:
             if playerMove:
                 while True: 
-                    # gameOver is checked after AI move and after player move
-                    gameOver(gameMap, matrix_size, win_length)
+                    
 
                     input_text = input('[Choose a slot (1-' + str(matrix_size) + ')]: ')
                     if input_text == '':
@@ -122,12 +121,14 @@ def main (argv):
                 gameMap = gs.updateMap(gameMap, player_input, 0)
                 gs.buildMap(gameMap)
                 # gameOver is checked after AI move and after player move
-                gameOver(gameMap, matrix_size, win_length)
+                gameOver(gameMap, matrix_size, win_length, 1)
             
             print('ai does some crazy stuff and makes a move')
             #this is where you would call min max analysis
             #followed by the ai's percieved optimal move
             #gameMap = gs.updateMap(gameMap, agent_input, 1)
+            # gameOver is checked after AI move and after player move
+            gameOver(gameMap, matrix_size, win_length, 1)
             gs.buildMap(gameMap)
             playerMove = True
 
