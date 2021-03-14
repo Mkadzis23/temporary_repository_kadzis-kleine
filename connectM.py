@@ -133,8 +133,7 @@ def main (argv):
         while True:
             if playerMove:
                 while True: 
-                    # gameOver is checked after AI move and after player move
-                    gameOver(gameMap, matrix_size, win_length)
+                    
 
                     input_text = input('[Choose a slot (1-' + str(matrix_size) + ')]: ')
                     if input_text == '':
@@ -157,6 +156,8 @@ def main (argv):
             #this is where you would call min max analysis
             #followed by the ai's percieved optimal move
             #gameMap = gs.updateMap(gameMap, agent_input, 1)
+            # gameOver is checked after AI move and after player move
+            gameOver(gameMap, matrix_size, win_length, 1)
             gs.buildMap(gameMap)
             playerMove = True
 
