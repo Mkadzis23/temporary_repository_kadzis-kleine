@@ -54,6 +54,8 @@ def buildMap (gameMap):
 #Returns true if the selected column slot is available
 def checkSlot (gameMap, slot):
     open_spot = 0
+    if slot < 1 or slot > gameMap.map_size:
+        return False
     for i in range(gameMap.map_size):
         current_token = gameMap.map_state[i][slot-1]
         if current_token == -1:
@@ -86,3 +88,5 @@ def updateMap (gameMap, slot, symbol):
     gameMap.map_state[size-1][slot-1] = symbol
 
     return gameMap
+    
+
