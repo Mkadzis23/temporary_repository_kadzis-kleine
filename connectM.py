@@ -61,7 +61,9 @@ def gameOver(gameMap, matrix_size, win_length, currPlayerSymbol):
         for column in row:
             if column == currPlayerSymbol:
                 inaRow += 1
-                if inaRow == win_length: return 1
+                if inaRow == win_length: 
+                    gameMap.winner = currPlayerSymbol
+                    return 1
             else:
                 inaRow = 0
 
@@ -71,7 +73,9 @@ def gameOver(gameMap, matrix_size, win_length, currPlayerSymbol):
         for column in gameMap.map_state:
             if column[x] == currPlayerSymbol:
                 inaRow += 1
-                if inaRow == win_length: return 1
+                if inaRow == win_length: 
+                    gameMap.winner = currPlayerSymbol
+                    return 1
             else:
                 inaRow = 0
 
@@ -138,14 +142,14 @@ def main (argv):
 
                 gameMap = gs.updateMap(gameMap, player_input, 0)
                 gs.buildMap(gameMap)
-                # gameOver is checked after AI move and after player move
+                # gameOver is checked after AI move and after player move | 0 FOR AI
                 winCondition(gameMap, matrix_size, win_length , 0)
             
             print('ai does some crazy stuff and makes a move')
             #this is where you would call min max analysis
             #followed by the ai's percieved optimal move
             #gameMap = gs.updateMap(gameMap, agent_input, 1)
-            # winCondition is checked after AI move and after player move
+            # winCondition is checked after AI move and after player move | 1 FOR PLAYER
             winCondition(gameMap, matrix_size, win_length , 1)
             gs.buildMap(gameMap)
             playerMove = True
