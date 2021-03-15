@@ -62,7 +62,7 @@ def gameOver(gameMap, matrix_size, win_length, currPlayerSymbol):
             if column == currPlayerSymbol:
                 inaRow += 1
                 if inaRow == win_length: 
-                    gameMap.winner = currPlayerSymbol
+                    setWinner(gameMap, currPlayerSymbol)
                     return 1
             else:
                 inaRow = 0
@@ -74,7 +74,7 @@ def gameOver(gameMap, matrix_size, win_length, currPlayerSymbol):
             if column[x] == currPlayerSymbol:
                 inaRow += 1
                 if inaRow == win_length: 
-                    gameMap.winner = currPlayerSymbol
+                    setWinner(gameMap, currPlayerSymbol)
                     return 1
             else:
                 inaRow = 0
