@@ -12,7 +12,7 @@ def alphBetSearch(gameMap, currPlayerSymbol, matrix_size, win_length):
     a = None
     node =  Node(gameMap)
     for slot in range(matrix_size):
-        if(gs.checkSlot(slot)):
+        if(gs.checkSlot(gameMap, slot)):
             placeholder = True #just a placeholder for testing
             #alphaPrime = minValue(node, 
             #make tree for that slot
