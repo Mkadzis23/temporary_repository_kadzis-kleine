@@ -6,56 +6,57 @@ import gameState as gs
 from data.node import Node
 
 #set the depth to search here
-depth = 5
-posInf = 999999999
-negInf = -999999999
-    #takes in the current board state and returns a slot that is the move choice
-def alphBetSearch(gameMap, currPlayerSymbol, matrix_size, win_length):
-    alpha = negInf
-    beta = posInf
-    a = None
-    moves = None
-    node =  Node(gameMap)
-    for slot in range(matrix_size):
-        if(gs.checkSlot(gameMap, slot)):
-            moves.append(slot) 
-            #alphaPrime = minValue(node, 
-            #make tree for that slot
-        else:
-            #Reached leaf, so call utility func
-             return evaluateStateValue(gameMap, win_length, matrix_size, currPlayerSymbol)
-    
-    
-    
-    #should the map have an associated node or something?
-    def minValue(node, gameMap, alpha, beta):
-        depthCount = 0
-        validMoves = []
-        for slot in range(gameMap.map_size):
-            if (gs.checkSlot(gameMap, slot)):
-                tempMap = gs.updateMap(gameMap, slot, currPlayerSymbol)
-                validMoves.append(tempMap)
-        if len(validMoves) == 0 or cutoffTest(node):
-            return evaluateStateValue(gameMap, win_length, matrix_size, currPlayerSymbol)
+depth = 3
+infinity = 999999999
+
+# m is the matrix size
+# w is the win_length
+# s is the player symbol
+def alphBetSearch(gameMap, m, w, s):
+
+    best_score = -infinity
+    best_slot = None
+
+    for slot in range(m):
+        if gs.checkSlot(gameMap, slot):
+            tempMap = gameMap
+            tempMap = gs.updateMap(tempMap, slot, s)
+
+            score = minMaxSearch(tempMap, depth, True, m, w, s)
+            if score > best_score:
+                best_score = score
+                best_slot = slot 
+    return best_slot
+
+def minMaxSearch (gameMap, depth, isMax, m, w, s):
+    isOver = gs.gameOver(gameMap, m, w, s)
+    if isOver == 1 or depth == 0:
+        return 
+
+    if isMax:
+        best_score = -infinity
+        for slot in range(m):
+            if gs.checkSlot(gameMap, slot):
+                tempMap = gameMap
+                tempMap = gs.updateMap(tempMap, slot, s)
+
+                score = minMaxSearch(tempMap, depth-1, False, m, w, 0)
+                if score > best_score:
+                    best_score = score
+        return best_score
+
+    else:
+        best_score = infinity
+        for slot in range(m):
+            if gs.checkSlot(gameMap, slot):
+                tempMap = gameMap
+                tempMap = gs.updateMap(tempMap, slot, s)
+
+                score = minMaxSearch(tempMap, depth-1, True, m, w, 1)
+                if best_score > score:
+                    best_score = score
+        return best_score
         
-        #reassigning validMoves to the actual slots rather than the states
-        validMoves = None
-        for slot in range(gameMap.map_size):
-            if (gs.checkSlot(gameMap, slot)):
-                validMoves.append(slot)
-        #for(slot in validMoves):
-        
-       
-   #board depth max min playersymbol
-
-
-
-    #Generate entire game tree up to a certain depth
-    #apply utility function to the leaves
-    #Propagate upwards to the root (max nodes receiving the max of their children and the opposite for min nodes)
-    #Return the move slot of the child with the highest value in the end
-    return
-
 
 #takes in a board state and returns a value that represents how favorable it is. 
 def evaluateStateValue(gameMap, win_length, matrix_size, currPlayerSymbol):
