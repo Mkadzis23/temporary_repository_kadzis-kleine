@@ -5,6 +5,9 @@ from data.map import Map
 import gameState as gs
 from data.node import Node
 
+#set the depth to search here
+depth = 5
+
     #takes in the current board state and returns a slot that is the move choice
 def alphBetSearch(gameMap, currPlayerSymbol, matrix_size, win_length):
     alpha = -999999999
@@ -19,7 +22,22 @@ def alphBetSearch(gameMap, currPlayerSymbol, matrix_size, win_length):
         else:
             #Reached leaf, so call utility func
              return evaluateStateValue(gameMap, win_length, matrix_size, currPlayerSymbol)
-    #def minValue(node, problem, alpha, beta)
+    
+    
+    
+    #should the map have an associated node or something?
+    def minValue(node, gameMap, alpha, beta):
+        depthCount = 0
+        validMoves = []
+        for slot in range(gameMap.map_size):
+            if (gs.checkSlot(gameMap, slot)):
+                tempMap = gs.updateMap(gameMap, slot, currPlayerSymbol)
+                validMoves.append(tempMap)
+       # if len(validMoves) == 0 or 
+
+        
+       
+   #board depth max min playersymbol
 
 
 
@@ -151,9 +169,13 @@ def evaluateStateValue(gameMap, win_length, matrix_size, currPlayerSymbol):
     return   stateScore
 
 
-#to be altered to the desired depth of the tree to check'
-#right now just checking all children
+#Returns true if a node is below desired depth limit
 def cutoffTest(node):
-    if(node.children.len() > 0):
-        return False
-    return True
+    depthCount = 0
+    nodePtr = node
+    while(nodePtr.hasParent()):
+        nodePtr = nodePtr.get_parent()
+        depthCount += 1
+        if depthCount > depth:
+            return True
+    return False
