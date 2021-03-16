@@ -7,16 +7,18 @@ from data.node import Node
 
 #set the depth to search here
 depth = 5
-
+posInf = 999999999
+negInf = -999999999
     #takes in the current board state and returns a slot that is the move choice
 def alphBetSearch(gameMap, currPlayerSymbol, matrix_size, win_length):
-    alpha = -999999999
-    beta = 999999999
+    alpha = negInf
+    beta = posInf
     a = None
+    moves = None
     node =  Node(gameMap)
     for slot in range(matrix_size):
         if(gs.checkSlot(gameMap, slot)):
-            placeholder = True #just a placeholder for testing
+            moves.append(slot) 
             #alphaPrime = minValue(node, 
             #make tree for that slot
         else:
@@ -33,8 +35,15 @@ def alphBetSearch(gameMap, currPlayerSymbol, matrix_size, win_length):
             if (gs.checkSlot(gameMap, slot)):
                 tempMap = gs.updateMap(gameMap, slot, currPlayerSymbol)
                 validMoves.append(tempMap)
-       # if len(validMoves) == 0 or 
-
+        if len(validMoves) == 0 or cutoffTest(node):
+            return evaluateStateValue(gameMap, win_length, matrix_size, currPlayerSymbol)
+        
+        #reassigning validMoves to the actual slots rather than the states
+        validMoves = None
+        for slot in range(gameMap.map_size):
+            if (gs.checkSlot(gameMap, slot)):
+                validMoves.append(slot)
+        #for(slot in validMoves):
         
        
    #board depth max min playersymbol
